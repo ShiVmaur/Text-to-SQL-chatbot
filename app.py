@@ -10,7 +10,7 @@ from langchain_core.runnables import RunnablePassthrough
 
 # Groq LLM setup
 llm = ChatGroq(
-    groq_api_key="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",
+    groq_api_key=st.secrets["GROQ_API_KEY"],
     model_name="llama-3.3-70b-versatile"
 )
 
