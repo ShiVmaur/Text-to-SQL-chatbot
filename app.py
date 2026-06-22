@@ -20,7 +20,7 @@ def clean_sql(query):
     return query.strip()
 
 # ── Engine ─────────────────────────────────────────────
-DB_URL = "postgresql+psycopg2://postgres:OXi7Lh1ooaVNvYy5@db.xrmpeerpgaxjghszaemt.supabase.co:5432/postgres"
+DB_URL = "postgresql+psycopg2://postgres.xrmpeerpgaxjghszaemt:OXi7Lh1ooaVNvYy5@aws-0-ap-northeast-1.pooler.supabase.com:5432/postgres?pgbouncer=true"
 engine = create_engine(DB_URL)
 
 # ── History table ──────────────────────────────────────
