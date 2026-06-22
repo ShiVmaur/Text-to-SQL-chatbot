@@ -20,7 +20,8 @@ def clean_sql(query):
     return query.strip()
 
 # ── Engine ─────────────────────────────────────────────
-engine = create_engine("postgresql+psycopg2://postgres.xrmpeerpgaxjghszaemt:TUMHARA-PASSWORD@aws-0-ap-northeast-1.pooler.supabase.com:6543/postgres")
+DB_URL = "postgresql+psycopg2://postgres:OXi7Lh1ooaVNvYy5@db.xrmpeerpgaxjghszaemt.supabase.co:5432/postgres"
+engine = create_engine(DB_URL)
 
 # ── History table ──────────────────────────────────────
 with engine.connect() as conn:
@@ -98,7 +99,7 @@ if uploaded_files:
 
     # ── Database connect karo ──────────────────────────
     db = SQLDatabase.from_uri(
-        "postgresql+psycopg2://postgres.xrmpeerpgaxjghszaemt:OXi7Lh1ooaVNvYy5@aws-0-ap-northeast-1.pooler.supabase.com:6543/postgres",
+        DB_URL,
         include_tables=table_names
     )
 
