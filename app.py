@@ -20,8 +20,8 @@ def clean_sql(query):
     return query.strip()
 
 # ── Engine ─────────────────────────────────────────────
-DB_URL = "postgresql+psycopg2://postgres.xrmpeerpgaxjghszaemt:OXi7Lh1ooaVNvYy5@aws-0-ap-northeast-1.pooler.supabase.com:5432/postgres?pgbouncer=true"
-engine = create_engine(DB_URL)
+DB_URL = "postgresql+psycopg2://postgres.xrmpeerpgaxjghszaemt:OXi7Lh1ooaVNvYy5@aws-0-ap-northeast-1.pooler.supabase.com:5432/postgres"
+engine = create_engine(DB_URL, connect_args={"sslmode": "require"})
 
 # ── History table ──────────────────────────────────────
 with engine.connect() as conn:
