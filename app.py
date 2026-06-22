@@ -20,14 +20,14 @@ def clean_sql(query):
     return query.strip()
 
 # ── Engine ─────────────────────────────────────────────
-DB_URL = st.secrets["DATABASE_URL"]
-engine = create_engine(DB_URL)
+DB_URL = "sqlite:///data.db"
+engine = create_engine(DB_URL, connect_args={"check_same_thread": False})
 
 # ── History table ──────────────────────────────────────
 with engine.connect() as conn:
     conn.execute(text("""
         CREATE TABLE IF NOT EXISTS query_history (
-            id SERIAL PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             question TEXT,
             table_name TEXT,
             asked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -90,7 +90,7 @@ if uploaded_files:
     if history:
         for i, row in enumerate(history):
             st.sidebar.markdown(f"**{i+1}.** {row[0]}")
-            st.sidebar.caption(f"🕐 {row[1].strftime('%d %b %Y %H:%M')}")
+            st.sidebar.caption(f"🕐 {row[1]}")
         if st.sidebar.button("🗑️ Clear History"):
             clear_history(current_tables)
             st.rerun()
@@ -109,11 +109,10 @@ if uploaded_files:
 
     # SQL prompt
     sql_prompt = ChatPromptTemplate.from_template("""
-You are a PostgreSQL expert. Look at the schema below and write only the SQL query.
+You are a SQL expert. Look at the schema below and write only the SQL query.
 Do not explain anything, just write the query. No backticks. No square brackets.
 IMPORTANT: Column names with spaces must always be wrapped in double quotes like "Review Rating".
 IMPORTANT: Aggregate functions must use round brackets like MAX("Review Rating"), MIN("Age"), SUM("Purchase Amount (USD)"), COUNT(*).
-IMPORTANT: Never use square brackets [ ] anywhere in the query.
 You can use JOIN if the question needs data from multiple tables.
 Available tables: {tables}
 
