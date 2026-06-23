@@ -1,5 +1,7 @@
 # 📊 Text-to-SQL Chatbot
 
+Live Demo: [text-to-sql-chatbot-shivam.streamlit.app](https://text-to-sql-chatbot-shivam.streamlit.app)
+
 An AI-powered chatbot that converts natural language questions into SQL queries using LangChain and Groq LLM.
 
 ## Features
